@@ -29,9 +29,7 @@ export default (
             >
             <MenuIcon />
             </IconButton>
-            <Title>
-                Service Name
-            </Title>
+            <Title>ServiceName</Title>
         </Toolbar>
     </AppBar>
 );
