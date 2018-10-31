@@ -30,7 +30,7 @@ export default (
             <MenuIcon />
             </IconButton>
             <Title>
-                react-material-starter
+                Service Name
             </Title>
         </Toolbar>
     </AppBar>

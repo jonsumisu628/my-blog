@@ -14,7 +14,7 @@ import styled from "styled-components";
 export default (props: React.HTMLAttributes<HTMLElement>) => (
     <nav {...props}>
         <Toolbar>
-            <Title>react-material-starter</Title>
+            <Title>Service Name</Title>
         </Toolbar>
         <Divider />
         <List>
