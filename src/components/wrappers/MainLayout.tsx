@@ -1,9 +1,12 @@
 import React                         from "react";
-import { Drawer }                    from "@material-ui/core";
+import { Drawer, withTheme }         from "@material-ui/core";
 import { RouteComponentProps }       from "react-router-dom";
 import styled                        from "styled-components";
 import { NotificationListenerProps } from "./NotificationListener";
-import Header                        from "../Header";
+import {
+    default as Header,
+    HeaderProps
+} from "../Header";
 import NavigationBar                 from "../NavigationBar";
 
 interface State {
@@ -45,8 +48,9 @@ export default class extends React.Component<Props, State> {
 
         return (
             <div>
-                <Header
+                <StyledHeader
                     toggleDrawer={this.toggleDrawer}
+                    position="fixed"
                 />
                 <Host>
                     <div>
@@ -108,6 +112,11 @@ const Content = styled.div`
     position: relative;
     width: calc(100% - 15rem);
     margin-left: 15rem;
+    min-height: 100vh;
+    margin-bottom: 100px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 80px;
     @media (max-width: 767px) {
         width: 100%;
         margin-left: 0rem;
@@ -115,9 +124,18 @@ const Content = styled.div`
 `;
 
 const Main = styled.main`
-    min-height: calc(100vh - 64px);
 `;
 
 const StyledNavigationBar = styled(NavigationBar)`
     width: 15rem;
 `;
+
+const _Header = styled<HeaderProps>(Header)`
+    && {
+        z-index: ${(props: any) => props.theme.zIndex.drawer + 1}
+    }
+`;
+
+const StyledHeader = withTheme()(
+    (props: any) => <_Header {...props}/>
+);
