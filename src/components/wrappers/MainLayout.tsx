@@ -117,6 +117,7 @@ const Content = styled.div`
     padding-left: 32px;
     padding-right: 32px;
     padding-top: 80px;
+    box-sizing: border-box;
     @media (max-width: 767px) {
         width: 100%;
         margin-left: 0rem;
