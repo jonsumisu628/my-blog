@@ -1,8 +1,8 @@
 {
-  "name": "portal-web",
+  "name": "react-material-starter",
   "version": "0.1.1",
   "main": "src/index.js",
-  "repository": "https://github.com/is09-souzou/portal-web",
+  "repository": "https://github.com/NozomiSugiyama/react-material-starter",
   "author": "NozomiSugiyama <rioc.sugiyama@gmail.com>",
   "license": "MIT",
   "bin": "./index.js",
