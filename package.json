@@ -5,7 +5,6 @@
   "repository": "https://github.com/NozomiSugiyama/react-material-starter",
   "author": "NozomiSugiyama <rioc.sugiyama@gmail.com>",
   "license": "MIT",
-  "bin": "./index.js",
   "scripts": {
     "start": "yarn cache-clean && NODE_ENV=development webpack-serve webpack.config.js",
     "start:prod": "yarn cache-clean && NODE_ENV=production webpack-serve webpack.config.js",
