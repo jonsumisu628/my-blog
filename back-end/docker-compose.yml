@@ -1,0 +1,9 @@
+version: '3.2'
+services:
+  agent:
+    image: my-blog:0.0.1
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: ingress
