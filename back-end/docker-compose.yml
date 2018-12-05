@@ -1,9 +1,20 @@
 version: '3.2'
 services:
-  agent:
-    image: my-blog:0.0.1
+  backend:
+    image: my-blog-backend:0.0.1d
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./api:/srv/app/api
     ports:
       - target: 80
         published: 80
         protocol: tcp
         mode: ingress
+  db:
+    image: mysql:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=jonsumisu"
+    volumes:
+      - ./database:/var/lib/mysql
