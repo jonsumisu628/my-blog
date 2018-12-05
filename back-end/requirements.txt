@@ -1,3 +1,4 @@
 python-dotenv
 flake8
 bottle
+mysql-connector-python-rf
