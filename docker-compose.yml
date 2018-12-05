@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+  backend:
+    image: my-blog-backend:0.0.1p
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile-prod
+    ports:
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: ingress
+  frontend:
+    image: my-blog-frontend:0.0.1p
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile-prod
+    ports:
+      - target: 80
+        published: 8081
+        protocol: tcp
+        mode: ingress
+  db:
+    image: mysql:latest
+    environment:
+      - "MYSQL_ROOT_PASSWORD=jonsumisu"
+    volumes:
+      - ./database:/var/lib/mysql
