@@ -1,0 +1,3 @@
+FROM mysql:latest
+WORKDIR /
+COPY ./build/my-blog-db/sql /docker-entrypoint-initdb.d/
