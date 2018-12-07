@@ -5,16 +5,24 @@
 Create file the `.env`
 
 ```sh
+MYSQL_ROOT_PASSWORD=
+MYSQL_USER=
+MYSQL_PASSWORD=
 
 # Option
 ```
 check the `.env.sample`
 
-### In case of Docker
+### In case of Docker compose
 
+#### start
 ```bash
-$ docker build -t my-blog ./
-$ docker run -p 8080:80 -d -v $PWD:/back-end my-blog
+$ docker-compose -f ./build/docker-compose.yml up -d --build
+```
+
+#### build
+```bash
+$ docker-compose -f ./build/docker-compose.yml build
 ```
 
 ### In case of Host
