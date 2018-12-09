@@ -17,12 +17,17 @@ check the `.env.sample`
 
 #### start
 ```bash
-$ docker-compose -f ./build/docker-compose-dev.yml up -d --build
+$ docker-compose -f ./build-config/docker-compose-dev.yml up -d --build
 ```
 
 #### build
 ```bash
-$ docker-compose -f ./build/docker-compose-dev.yml build
+# build
+$ docker-compose -f ./build-config/docker-compose-dev.yml build
+# up
+$ docker-compose -f ./build-config/docker-compose-dev.yml up -d
+# restart
+$ docker-compose -f ./build-config/docker-compose-dev.yml restart
 ```
 
 ### In case of Host
