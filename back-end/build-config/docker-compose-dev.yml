@@ -6,7 +6,7 @@ services:
       context: ./../
       dockerfile: ./build/my-blog-api/Dockerfile.dev
     volumes:
-      - ./../api:/srv/app/api
+      - ./../src:/srv/app/src
     ports:
       - target: 80
         published: 80
