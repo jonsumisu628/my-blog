@@ -4,7 +4,7 @@ services:
     image: my-blog-api:0.0.1d
     build:
       context: ./../
-      dockerfile: ./build/my-blog-api/Dockerfile.dev
+      dockerfile: ./build-config/my-blog-api/Dockerfile.dev
     volumes:
       - ./../src:/srv/app/src
     ports:
@@ -16,7 +16,7 @@ services:
     image: my-blog-db:0.0.1d
     build:
       context: ./../
-      dockerfile: ./build/my-blog-db/Dockerfile.dev
+      dockerfile: ./build-config/my-blog-db/Dockerfile.dev
     env_file: ./../.env
     volumes:
       - my-blog-db-data:/var/lib/mysql
