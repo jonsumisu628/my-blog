@@ -1,11 +1,8 @@
-from sqlalchemy import Column, DateTime, ForeignKey, text
-from sqlalchemy.dialects.mysql import INTEGER, TEXT, TINYINT, VARCHAR
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from src.model.session import Base
+from sqlalchemy import Column
+from sqlalchemy.dialects.mysql import INTEGER
 
-
-class BaseModel(Base):
+class BaseModel():
+    id = Column(INTEGER(11), primary_key=True)
     @classmethod
     def find_by_id(cls, id, session):
         obj = session.query(cls).filter(cls.id == id).one()
@@ -16,6 +13,7 @@ class BaseModel(Base):
         obj = session.query(cls).all()
         return obj
 
-    def register(self, session):
-        session.add(self)
+    @classmethod
+    def register(cls, session):
+        session.add(cls)
         session.commit()

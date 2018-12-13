@@ -1,11 +1,11 @@
 import os
 
 from dotenv import load_dotenv
-from sqlalchemy import *
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import *
+from sqlalchemy.orm import sessionmaker
 
-dotenv_path = "".join([os.path.dirname(__file__), '/../.env'])
+dotenv_path = "".join([os.path.dirname(__file__), '/../../.env'])
 print(dotenv_path)
 load_dotenv(dotenv_path)
 
@@ -25,10 +25,10 @@ ENGINE = create_engine(
 )
 
 Session = sessionmaker(
-        autocommit = False,
-        autoflush = False,
-        bind = ENGINE
-    )
+    autocommit = False,
+    autoflush = False,
+    bind = ENGINE
+)
 
 
 Base = declarative_base()
