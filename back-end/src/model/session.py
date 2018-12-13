@@ -5,29 +5,31 @@ from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import *
 
-dotenv_path = join(os.path.dirname(__file__), '../.env')
+dotenv_path = "".join([os.path.dirname(__file__), '/../.env'])
+print(dotenv_path)
 load_dotenv(dotenv_path)
 
-DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
+DATABASE = 'mysql+pymysql://%s:%s@%s/%s?charset=utf8mb4' % (
     os.environ.get("MYSQL_USER"),
     os.environ.get("MYSQL_PASSWORD"),
-    "my-blog-db",
+    "db",
     "my-blog",
 )
 
 ENGINE = create_engine(
     DATABASE,
     encoding = "utf-8",
-    echo=True
+    echo=True,
+    pool_size=20,
+    max_overflow=0
 )
 
-session = scoped_session(
-    sessionmaker(
+Session = sessionmaker(
         autocommit = False,
         autoflush = False,
         bind = ENGINE
     )
-)
+
 
 Base = declarative_base()
-Base.query = session.query_property()
+#Base.query = session.query_property()

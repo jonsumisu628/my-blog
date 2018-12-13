@@ -2,3 +2,4 @@ python-dotenv
 flake8
 bottle
 SQLAlchemy
+pymysql

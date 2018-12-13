@@ -55,7 +55,7 @@ $ source virtualenv/bin/activate
 3. Install dependencies
 
 ```bash
-$ pip install -r requirements.txt
+$ pip install -r requirements/dev.txt
 ```
 
 - Exit virtualenv
@@ -66,7 +66,7 @@ $ deactivate
 ## Run AppSync-test Apprication
 
 Run main.py
-```
+```bash
 $ python3 main.py
 ```
 
@@ -88,6 +88,12 @@ $ python3 main.py
 {
     "python.pythonPath": "./back-end/virtualenv/bin/python"
 }
+```
+
+### Generate Model from SQL
+
+```bash
+$ eval "$(cat .env <(echo) <(declare -x))" && sqlacodegen mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@127.0.0.1/my-blog
 ```
 
 ## Check source lint

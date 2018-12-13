@@ -1,5 +1,5 @@
 import bottle
-
+import src.setting
 import src.routes
 
 if __name__ == '__main__':

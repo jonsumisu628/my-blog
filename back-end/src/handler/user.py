@@ -1,5 +1,10 @@
+from src.model.user import User
+import src.model.session
+import json
+
 def getUserList():
-    return [{"name": "test"}]
+    return [{"id": 1, "name": "test"}]
 
 def getUserById(id):
-    return {"id": id, "name": "test"}
+    print(id)
+    return json.dumps(User.getUserById(id))
