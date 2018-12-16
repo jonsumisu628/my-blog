@@ -6,7 +6,7 @@ from src.model.user import User
 
 def get_user_by_id(id):
     session = Session()
-    model = User.find_by_id(id, session)
+    model = User.find_by_id(id, session)[0]
     session.close()
     result = json.dumps(model.to_dict())
     return result

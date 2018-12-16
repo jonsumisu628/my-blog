@@ -4,8 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, validates
 
 from src.model.base import BaseModel
-from src.model.session import ENGINE, Base, Session
 from src.model.blog import Blog
+from src.model.session import ENGINE, Base, Session
+
 
 class User(Base, BaseModel):
 
@@ -20,6 +21,8 @@ class User(Base, BaseModel):
     created_at = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
     updated_at = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
 
+    blog = None
+
     @validates('name', 'display_name')
     def validate_blank_character(self, key, value):
         assert value != ''
@@ -33,29 +36,30 @@ class User(Base, BaseModel):
             'avatar_url': self.avatar_url,
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat(),
+            "blog": None if self.blog == None else list(map(lambda x: x.to_dict(), self.blog))
         })
 
     @classmethod
-    def find_by_id(cls, id, session, include_blog=True):
-        query = None
-        if include_blog == True:
-            query = session.query(cls, Blog).filter(cls.id == id).join(Blog, User.id == Blog.publish_user_id)
+    def find_by_id(cls, id, session, included_blog=True):
+        result = None
+        if included_blog == True:
+            data = session.query(cls, Blog).filter(cls.id == id).join(Blog, User.id == Blog.publish_user_id).all()
+            result = User.to_nested_obj(data, ['blog'])
         else:
-            query = session.query(cls).filter(cls.id == id)
-        result = query.all()
-        print('-----------')
-        print(result)
-        print(result.__dict__)
-        print('-----------')
+            result = session.query(cls).filter(cls.id == id).all()
+
         return result
 
     @classmethod
-    def find_all(cls, session, include_blog=True):
-        query = session.query(cls)
-        if include_blog == True:
-            query = query.join(Blog, User.id == Blog.publish_user_id)
-        return query.all()
+    def find_all(cls, session, included_blog=True):
+        result = None
+        if included_blog == True:
+            data = session.query(cls, Blog).join(Blog, User.id == Blog.publish_user_id).all()
+            result = User.to_nested_obj(data, ['blog'])
+        else:
+            result = session.query(cls).all()
+
+        return result
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=ENGINE)
-    User.find_by_id

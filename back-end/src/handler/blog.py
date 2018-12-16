@@ -1,7 +1,7 @@
 import json
 
-from src.model.session import Session
 from src.model.blog import Blog
+from src.model.session import Session
 
 
 def get_blog_by_id(id):

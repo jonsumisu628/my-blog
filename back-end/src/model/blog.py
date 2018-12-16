@@ -3,8 +3,8 @@ from sqlalchemy.dialects.mysql import INTEGER, TEXT, TINYINT, VARCHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, validates
 
-from src.model.session import ENGINE, Base, Session
 from src.model.base import BaseModel
+from src.model.session import ENGINE, Base, Session
 
 
 class Blog(Base, BaseModel):
