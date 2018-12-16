@@ -4,7 +4,9 @@ services:
     image: my-blog-api:0.0.1d
     build:
       context: ./../
-      dockerfile: ./build-config/my-blog-api/Dockerfile.dev
+      dockerfile: ./build-config/my-blog-api/Dockerfile
+      args:
+        - mode=dev
     volumes:
       - ./../src:/srv/app/src
       - ./../app.py:/srv/app/app.py
@@ -17,7 +19,9 @@ services:
     image: my-blog-db:0.0.1d
     build:
       context: ./../
-      dockerfile: ./build-config/my-blog-db/Dockerfile.dev
+      dockerfile: ./build-config/my-blog-db/Dockerfile
+      args:
+        - mode=dev
     env_file: ./../.env
     volumes:
       - my-blog-db-data:/var/lib/mysql

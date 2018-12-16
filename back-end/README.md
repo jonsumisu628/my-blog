@@ -8,6 +8,7 @@ Create file the `.env`
 MYSQL_ROOT_PASSWORD=
 MYSQL_USER=
 MYSQL_PASSWORD=
+MYSQL_DATABASE=my-blog
 
 # Option
 ```

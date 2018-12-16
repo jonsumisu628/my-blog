@@ -1,5 +1,0 @@
-FROM python:3.7-stretch
-WORKDIR /srv/app
-COPY ./ .
-RUN pip install -r requirements/prod.txt
-CMD python /srv/app/app.py
