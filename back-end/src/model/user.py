@@ -1,5 +1,8 @@
+import bcrypt
+
 from sqlalchemy import Column, DateTime, ForeignKey, text
-from sqlalchemy.dialects.mysql import INTEGER, TEXT, TINYINT, VARCHAR
+from sqlalchemy.dialects.mysql import (INTEGER, TEXT, TINYINT, VARBINARY,
+                                       VARCHAR)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, validates
 
@@ -13,8 +16,7 @@ class User(Base, BaseModel):
     __tablename__ = 'users'
 
     id = Column(INTEGER(11), primary_key=True)
-    password = Column(VARCHAR(255), nullable=False)
-    salt = Column(VARCHAR(255), nullable=False)
+    password = Column(VARBINARY(255), nullable=False)
     name = Column(VARCHAR(45), nullable=False)
     display_name = Column(VARCHAR(45), nullable=False)
     avatar_url = Column(VARCHAR(255))
@@ -22,6 +24,25 @@ class User(Base, BaseModel):
     updated_at = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
 
     blog = None
+
+    def __init__(
+        self,
+        *,
+        id=None,
+        password=None,
+        name=None,
+        display_name=None,
+        avatar_url=None,
+        created_at=None,
+        updated_at=None
+    ):
+        self.id = id
+        self.password = password
+        self.name = name
+        self.display_name = display_name
+        self.avatar_url = avatar_url
+        self.created_at = created_at
+        self.updated_at = updated_at
 
     @validates('name', 'display_name')
     def validate_blank_character(self, key, value):
@@ -60,6 +81,17 @@ class User(Base, BaseModel):
             result = session.query(cls).all()
 
         return result
+
+    @staticmethod
+    def register(model, new_password, session):
+        if (new_password):
+            model.password = bcrypt.hashpw(
+                new_password.encode(encoding='utf-8'),
+                bcrypt.gensalt(rounds=22, prefix=b'2a')
+            )
+        session.add(model)
+        session.commit()
+        return model
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=ENGINE)

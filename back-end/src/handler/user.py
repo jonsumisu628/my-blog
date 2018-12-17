@@ -18,8 +18,24 @@ def get_user_list():
     result = json.dumps(list(map(lambda x: x.to_dict(), model_list)))
     return result
 
-def add_user(user):
-    pass
+def add_user(req_data):
+    name         = req_data['name']
+    display_name = req_data['display_name']
+    avatar_url   = req_data['avatar_url']
+    password     = req_data['password']
+
+    user = User(
+        name=name,
+        display_name=display_name,
+        avatar_url=avatar_url
+    )
+    session = Session()
+    user = user.register(user, password, session)
+    print(user)
+    print(user.id)
+    session.close()
+    # result = json.dumps(list(map(lambda x: x.to_dict(), model_list)))
+    # return result
 
 def delete_user(id):
     pass

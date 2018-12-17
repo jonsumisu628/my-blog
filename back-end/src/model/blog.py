@@ -22,6 +22,29 @@ class Blog(Base, BaseModel):
 
     publish_user = relationship('User')
 
+    def __init__(
+        self,
+        *,
+        id=None,
+        title=None,
+        publish_user_id=None,
+        description=None,
+        content=None,
+        main_image=None,
+        is_public=None,
+        created_at=None,
+        updated_at=None
+    ):
+        self.id = id
+        self.title = title
+        self.publish_user_id = publish_user_id
+        self.description = description
+        self.content = content
+        self.main_image = main_image
+        self.is_public = is_public
+        self.created_at = created_at
+        self.updated_at = updated_at
+
     @validates('title', 'description', 'content')
     def validate_blank_character(self, key, value):
         assert value != ''

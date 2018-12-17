@@ -4,3 +4,4 @@ starlette==0.8
 responder --pre
 SQLAlchemy
 pymysql
+bcrypt

@@ -14,9 +14,9 @@ class BaseModel():
         obj = session.query(cls).all()
         return obj
 
-    @classmethod
-    def register(cls, session):
-        session.add(cls)
+    @staticmethod
+    def register(model, session):
+        session.add(model)
         session.commit()
 
     @staticmethod

@@ -28,6 +28,6 @@ if __name__ == '__main__':
     set_routes(api)
     api.run(
         address='0.0.0.0',
-        port=8080,
+        port=80,
         debug=True if mode == "dev" else False
     )
