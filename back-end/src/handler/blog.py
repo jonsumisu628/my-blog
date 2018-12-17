@@ -17,3 +17,9 @@ def get_blog_list():
     session.close()
     result = json.dumps(list(map(lambda x: x.to_dict(), model_list)))
     return result
+
+def add_blog(blog):
+    pass
+
+def delete_blog(id):
+    pass

@@ -108,13 +108,11 @@ Currently, responder's Debug mode does not work
 ### Linux
 Use inotify-tools
 
-```bash
-$./bin/mywatch.sh /src '.*\.py$' "docker-compose -f ./build-config/docker-compose-dev.yml restart"
-```
+**WIP**
 
 ### Mac OS
 Use fswatch
 
 ```bash
-$ fswatch -o ./src -e "*.py" | xargs -n1 -I {} docker-compose -f ./build-config/docker-compose-dev.yml restart build-config_api_1
+$ fswatch -o ./src -e "*.py" | xargs -n1 -I % sh -c 'killall python; python app.py &'
 ```

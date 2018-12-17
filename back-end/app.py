@@ -1,6 +1,9 @@
-from src.routes import set_routes
+import os
 
 import responder
+from dotenv import load_dotenv
+
+from src.routes import set_routes
 
 cors_params = {
 	"allow_origins": ("*"),
@@ -12,12 +15,19 @@ cors_params = {
 	"max_age": 600,
 }
 
+dotenv_path = "".join([os.path.dirname(__file__), '/.env'])
+load_dotenv(dotenv_path)
+mode = os.environ.get("MY_BLOG_MODE")
+
 if __name__ == '__main__':
-    # TODO: set CORS
     api = responder.API(
         debug=True,
         cors=True,
         cors_params=cors_params,
     )
     set_routes(api)
-    api.run(address='0.0.0.0', port=80, debug=True)
+    api.run(
+        address='0.0.0.0',
+        port=8080,
+        debug=True if mode == "dev" else False
+    )

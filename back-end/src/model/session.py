@@ -6,7 +6,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 dotenv_path = "".join([os.path.dirname(__file__), '/../../.env'])
-print(dotenv_path)
 load_dotenv(dotenv_path)
 
 DATABASE = 'mysql+pymysql://%s:%s@%s/%s?charset=utf8mb4' % (

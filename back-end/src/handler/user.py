@@ -17,3 +17,9 @@ def get_user_list():
     session.close()
     result = json.dumps(list(map(lambda x: x.to_dict(), model_list)))
     return result
+
+def add_user(user):
+    pass
+
+def delete_user(id):
+    pass
