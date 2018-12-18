@@ -33,3 +33,12 @@ Session = sessionmaker(
 
 Base = declarative_base()
 # Base.query = session.query_property()
+
+def session(func):
+    def wrapper(*args, **kwargs):
+        session = Session()
+        kwargs["session"] = session
+        result = func(*args, **kwargs)
+        session.close()
+        return result
+    return wrapper
