@@ -11,8 +11,7 @@ def set_routes(api):
 
         async def on_post(self, req, resp):
             req_data = await req.media()
-            user.add_user(req_data)
-            resp.media = { 'a': 1 }
+            resp.media = user.add_user(req_data)
 
     @api.route("/users/{id}")
     class UserResource:

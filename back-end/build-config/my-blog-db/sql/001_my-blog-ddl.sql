@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `users`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL UNIQUE,
   `password` varbinary(255) NOT NULL,
   `name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `display_name` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,

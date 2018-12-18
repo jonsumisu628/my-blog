@@ -26,9 +26,10 @@ ENGINE = create_engine(
 Session = sessionmaker(
     autocommit = False,
     autoflush = False,
+    expire_on_commit=False,
     bind = ENGINE
 )
 
 
 Base = declarative_base()
-#Base.query = session.query_property()
+# Base.query = session.query_property()
