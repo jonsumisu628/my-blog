@@ -31,6 +31,8 @@ $ docker-compose -f ./build-config/docker-compose-dev.yml build
 $ docker-compose -f ./build-config/docker-compose-dev.yml up -d
 # restart
 $ docker-compose -f ./build-config/docker-compose-dev.yml restart
+# remove volume
+$ docker volume rm build-config_my-blog-db-data
 ```
 
 ### In case of Host
