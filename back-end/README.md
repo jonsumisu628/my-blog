@@ -9,6 +9,8 @@ MYSQL_ROOT_PASSWORD=
 MYSQL_USER=
 MYSQL_PASSWORD=
 MYSQL_DATABASE=my-blog
+# dev | prod
+MY_BLOG_MODE=dev
 
 # Option
 ```
