@@ -1,8 +1,11 @@
-import bcrypt
+import logging
+from logging import getLogger
 
+import bcrypt
 from sqlalchemy import Column, DateTime, ForeignKey, text
 from sqlalchemy.dialects.mysql import (INTEGER, TEXT, TINYINT, VARBINARY,
                                        VARCHAR)
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, validates
 
@@ -10,6 +13,7 @@ from src.model.base import BaseModel
 from src.model.blog import Blog
 from src.model.session import ENGINE, Base, Session
 
+logger = getLogger("my-blog").getChild("sub")
 
 class User(Base, BaseModel):
 
@@ -96,6 +100,7 @@ class User(Base, BaseModel):
 
         session.add(model)
         session.commit()
+
         return model
 
 if __name__ == "__main__":
