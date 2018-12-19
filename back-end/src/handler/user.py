@@ -4,7 +4,7 @@ from logging import getLogger
 from src.model.session import session
 from src.model.user import User
 
-logger = getLogger("my-blog").getChild("sub")
+logger = getLogger("my-blog").getChild(__name__)
 
 @session
 def get_user_by_id(id, session=None):

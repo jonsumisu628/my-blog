@@ -13,7 +13,7 @@ from src.model.base import BaseModel
 from src.model.blog import Blog
 from src.model.session import ENGINE, Base, Session
 
-logger = getLogger("my-blog").getChild("sub")
+logger = getLogger("my-blog").getChild(__name__)
 
 class User(Base, BaseModel):
 

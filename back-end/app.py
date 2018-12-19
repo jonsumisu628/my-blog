@@ -5,6 +5,7 @@ from logging import Formatter, StreamHandler, getLogger
 import responder
 from dotenv import load_dotenv
 
+from src.coloredformatter import ColoredFormatter, formatter_message
 from src.routes import set_routes
 
 cors_params = {
@@ -30,7 +31,14 @@ if __name__ == '__main__':
     stream_handler = StreamHandler()
     stream_handler.setLevel(logging.DEBUG)
     handler_format = Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    stream_handler.setFormatter(handler_format)
+    stream_handler.setFormatter(
+        ColoredFormatter(
+            formatter_message(
+                "%(levelname)s: [%(asctime)s][$BOLD%(name)s$RESET]($BOLD%(filename)s$RESET:%(lineno)d) $BOLD(￣∀￣) < my-blog log $RESET\n%(message)s",
+                True
+            )
+        )
+    )
     logger.addHandler(stream_handler)
 
     logger.info("""
@@ -72,18 +80,20 @@ if __name__ == '__main__':
     api = responder.API(
         debug=True,
         cors=True,
+        static_dir="",
+        templates_dir="",
         cors_params=cors_params,
     )
     set_routes(api)
 
-    logger.info("""
-=======================================
+    logger.info(
+"""=======================================
 Booting...
 address: %s
 port   : %s
 mode   : %s
-=======================================
-    """ % ("0.0.0.0", 80, mode))
+=======================================""" % ("0.0.0.0", 80, mode)
+    )
     api.run(
         address='0.0.0.0',
         port=80,
