@@ -15,18 +15,21 @@ from src.model.session import ENGINE, Base, Session
 
 logger = getLogger("my-blog").getChild(__name__)
 
+
 class User(Base, BaseModel):
 
     __tablename__ = 'users'
 
-    id           = Column(INTEGER(11), primary_key=True)
-    email        = Column(VARCHAR(255), nullable=False)
-    password     = Column(VARBINARY(255), nullable=False)
-    name         = Column(VARCHAR(45), nullable=False)
+    id = Column(INTEGER(11), primary_key=True)
+    email = Column(VARCHAR(255), nullable=False)
+    password = Column(VARBINARY(255), nullable=False)
+    name = Column(VARCHAR(45), nullable=False)
     display_name = Column(VARCHAR(45), nullable=False)
-    avatar_url   = Column(VARCHAR(255))
-    created_at   = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
-    updated_at   = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    avatar_url = Column(VARCHAR(255))
+    created_at = Column(DateTime, nullable=False,
+                        server_default=text("CURRENT_TIMESTAMP"))
+    updated_at = Column(DateTime, nullable=False, server_default=text(
+        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
 
     blog = None
 
@@ -42,14 +45,14 @@ class User(Base, BaseModel):
         created_at=None,
         updated_at=None
     ):
-        self.id           = id
-        self.email        = email
-        self.password     = password
-        self.name         = name
+        self.id = id
+        self.email = email
+        self.password = password
+        self.name = name
         self.display_name = display_name
-        self.avatar_url   = avatar_url
-        self.created_at   = created_at
-        self.updated_at   = updated_at
+        self.avatar_url = avatar_url
+        self.created_at = created_at
+        self.updated_at = updated_at
 
     @validates('email', 'password', 'name', 'display_name')
     def validate_blank_character(self, key, value):
@@ -58,21 +61,23 @@ class User(Base, BaseModel):
 
     def to_dict(self):
         return ({
-            'id'          : self.id,
-            'email'       : self.email,
-            'name'        : self.name,
+            'id': self.id,
+            'email': self.email,
+            'name': self.name,
             'display_name': self.display_name,
-            'avatar_url'  : self.avatar_url,
-            'created_at'  : self.created_at.isoformat(),
-            'updated_at'  : self.updated_at.isoformat(),
-            "blog"        : None if self.blog == None else list(map(lambda x: x.to_dict(), self.blog))
+            'avatar_url': self.avatar_url,
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat(),
+            "blog": None if self.blog is None
+                    else list(map(lambda x: x.to_dict(), self.blog))
         })
 
     @classmethod
     def find_by_id(cls, id, session, included_blog=True):
         result = None
         if included_blog == True:
-            data = session.query(cls, Blog).filter(cls.id == id).join(Blog, User.id == Blog.publish_user_id).all()
+            data = session.query(cls, Blog).filter(cls.id == id).join(
+                Blog, User.id == Blog.publish_user_id).all()
             result = User.to_nested_obj(data, ['blog'])
         else:
             result = session.query(cls).filter(cls.id == id).all()
@@ -83,7 +88,8 @@ class User(Base, BaseModel):
     def find_all(cls, session, included_blog=True):
         result = None
         if included_blog == True:
-            data = session.query(cls, Blog).join(Blog, User.id == Blog.publish_user_id).all()
+            data = session.query(cls, Blog).join(
+                Blog, User.id == Blog.publish_user_id).all()
             result = User.to_nested_obj(data, ['blog'])
         else:
             result = session.query(cls).all()
@@ -102,6 +108,7 @@ class User(Base, BaseModel):
         session.commit()
 
         return model
+
 
 if __name__ == "__main__":
     Base.metadata.create_all(bind=ENGINE)

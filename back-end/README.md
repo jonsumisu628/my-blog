@@ -103,7 +103,7 @@ $ eval "$(cat .env <(echo) <(declare -x))" && sqlacodegen mysql+pymysql://${MYSQ
 
 ## Check source lint
 ```bash
-$ flake8 *.py
+$ find ./src | grep -E '.py$' | xargs flake8
 ```
 
 ## Auto reload when change source code

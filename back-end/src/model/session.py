@@ -17,22 +17,23 @@ DATABASE = 'mysql+pymysql://%s:%s@%s/%s?charset=utf8mb4' % (
 
 ENGINE = create_engine(
     DATABASE,
-    encoding = "utf-8",
+    encoding="utf-8",
     echo=True,
     pool_size=20,
     max_overflow=0
 )
 
 Session = sessionmaker(
-    autocommit = False,
-    autoflush = False,
+    autocommit=False,
+    autoflush=False,
     expire_on_commit=False,
-    bind = ENGINE
+    bind=ENGINE
 )
 
 
 Base = declarative_base()
 # Base.query = session.query_property()
+
 
 def session(func):
     def wrapper(*args, **kwargs):

@@ -24,17 +24,18 @@ def set_routes(api: API):
                 resp.media = user.add_user(req_data)
             except Exception as e:
                 # https://tools.ietf.org/html/rfc7807
-                resp.headers["Content-Type"]     = "application/problem+json"
+                resp.headers["Content-Type"] = "application/problem+json"
                 resp.headers["Content-Language"] = "en"
                 logger.error(e)
                 if isinstance(e, IntegrityError):
+                    e: IntegrityError
                     logger.error(e)
                     logger.error(e.args)
                     resp.status_code = api.status_codes.HTTP_400
                     resp.text = json.dumps({
                         "type": "about:blank",
-                        "title": e.args,
-                        "detail": "Your current balance is 30, but that costs 50.",
+                        "title": e.orig.args[1],
+                        "detail": str(e),
                         "instance": "/account/12345/msgs/abc",
                     })
 

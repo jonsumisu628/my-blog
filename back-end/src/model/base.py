@@ -4,6 +4,7 @@ from sqlalchemy.dialects.mysql import INTEGER
 
 class BaseModel():
     id = Column(INTEGER(11), primary_key=True)
+
     @classmethod
     def find_by_id(cls, id, session):
         obj = session.query(cls).filter(cls.id == id).one()
