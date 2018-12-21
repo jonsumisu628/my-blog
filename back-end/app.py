@@ -39,7 +39,7 @@ if __name__ == '__main__':
             formatter_message(
                 "%(levelname)s: [%(asctime)s][$BOLD%(name)s$RESET]"
                 "($BOLD%(filename)s$RESET:%(lineno)d)"
-                "$BOLD(￣∀￣) < my-blog log $RESET\n%(message)s",
+                " $BOLD(￣∀￣) < my-blog log $RESET\n%(message)s",
                 True
             )
         )

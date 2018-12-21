@@ -5,3 +5,4 @@ responder --pre
 SQLAlchemy
 pymysql
 bcrypt
+jsonschema

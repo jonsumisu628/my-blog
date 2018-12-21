@@ -29,13 +29,13 @@ def set_routes(api: API):
                 logger.error(e)
                 if isinstance(e, IntegrityError):
                     e: IntegrityError
-                    logger.error(e)
-                    logger.error(e.args)
                     resp.status_code = api.status_codes.HTTP_400
                     resp.text = json.dumps({
                         "type": "about:blank",
-                        "title": e.orig.args[1],
-                        "detail": str(e),
+                        "title": "Your request parameters didn't validate.",
+                        "detail": e.orig.args[1],
+                        # TODO: add invalid-params
+                        # "invalid-params": [],
                         "instance": "/account/12345/msgs/abc",
                     })
 

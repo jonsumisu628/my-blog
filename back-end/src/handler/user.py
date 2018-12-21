@@ -2,6 +2,8 @@ from logging import getLogger
 
 from src.model.session import session
 from src.model.user import User
+from jsonschema import validate
+from src.schema import create_user_schema
 
 logger = getLogger("my-blog").getChild(__name__)
 
@@ -22,12 +24,14 @@ def get_user_list(session=None):
 
 @session
 def add_user(req_data, session=None):
+    logger.debug(req_data)
+    logger.debug(dir(req_data))
+    validate(req_data, create_user_schema)
     email = req_data['email']
     name = req_data['name']
     display_name = req_data['display_name']
     avatar_url = req_data['avatar_url']
     password = req_data['password']
-
     user = User(
         email=email,
         name=name,
